@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Posts from './components/Posts';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import PublicRoutes from './routes/PublicRoute';
+import PrivateRoutes from './routes/PrivateRoute';
+import Dashboard from "./components/Dashboard"
+import Preferences from "./components/Preferences"
+import Signup from "./components/Signup"
+
+// Axios Interceptor
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
+     <BrowserRouter>
+        <Switch>
+          <PublicRoutes restricted={false} component={Signup} path="/" exact />
+          <PrivateRoutes
+            restricted={true}
+            component={Dashboard}
+            path="/dashboard"
+          />
+          <PrivateRoutes
+            restricted={true}
+            component={Preferences}
+            path="/preferences"
+          />
+        </Switch>
+      </BrowserRouter>
+   
+      
     </div>
   );
 }
