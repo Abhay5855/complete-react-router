@@ -1,22 +1,44 @@
 import React, { useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 
 
 
-async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
-
 const Signup = () => {
-    // const history = useHistory();
+
+  
+    
+  const history = useHistory();
+  const location = useLocation();
+
+  let {from} = location.state || {from : {pathname : '/'}};
+
+
+  async function loginUser(credentials) {
+    return fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }).then((data) => 
+  
+        data.json(),
+
+        history.replace(from),
+  
+      
+    
+    );
+  }
+  
+    
+
 
    const [token , setToken] = useState();
+
+
+   
 
   const [data, setData] = useState({
     email: "",
@@ -33,8 +55,9 @@ const Signup = () => {
     console.log(token , 'this is token');
     localStorage.setItem('login-token' , JSON.stringify(token));
 
-    // history.push('/dashboard');
     
+
+   
   };
 
 

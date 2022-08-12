@@ -7,6 +7,7 @@ import PrivateRoutes from './routes/PrivateRoute';
 import Dashboard from "./components/Dashboard"
 import Preferences from "./components/Preferences"
 import Signup from "./components/Signup"
+import NotFound from './components/NotFound';
 
 // Axios Interceptor
 
@@ -29,7 +30,14 @@ function App() {
             component={Preferences}
             path="/preferences"
           />
+          <PrivateRoutes
+            restricted={true}
+            component={Posts}
+            path="/posts"
+          />
+          <Route path='*' component={NotFound}/>
         </Switch>
+
       </BrowserRouter>
    
       

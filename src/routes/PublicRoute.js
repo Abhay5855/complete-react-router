@@ -8,7 +8,10 @@ const PublicRoutes = ({ component: Component, restricted, ...rest }) => {
       {...rest}
       render={(props) =>
         isLogin() && restricted ? (
-          <Redirect to="/dashboard" />
+          <Redirect  to={{
+            pathname: "/",
+            state: { from: props.location },
+          }}/>
         ) : (
           <Component {...props} />
         )
